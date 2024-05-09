@@ -1,0 +1,81 @@
+.progress-bar-container {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+
+	.progress-bar,
+	progress {
+		position: relative;
+		flex-grow: 1;
+		height: 4px;
+		border: 2px solid transparent;
+		border-image-slice: 1;
+		border-image-width: 2px;
+		border-block: 0;
+		border-image-outset: 2px 0 2px 0;
+		border-image-repeat: stretch stretch;
+		border-image-source: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iM3B4IiBoZWlnaHQ9IjRweCIgdmlld0JveD0iMCAwIDMgNCIgdmVyc2lvbj0iMS4xIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxpbWFnZSB3aWR0aD0iMyIgaGVpZ2h0PSI0IiB4bGluazpocmVmPSJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQUFNQUFBQUVDQVlBQUFCTExZVUhBQUFBQVhOU1IwSUFyczRjNlFBQUFBUm5RVTFCQUFDeGp3djhZUVVBQUFBSmNFaFpjd0FBRHNNQUFBN0RBY2R2cUdRQUFBQVlkRVZZZEZOdlpuUjNZWEpsQUhCaGFXNTBMbTVsZENBMExqRXVOV1JIV0ZJQUFBQWZTVVJCVkJoWFkvai8veitEaElBQWtQclBBR2VBYUZRT2pQSC8vMzhHQUpEYUdUbFVlbStWQUFBQUFFbEZUa1N1UW1DQyIgaWQ9ImltZ18xIiAvPgogICAgPHBhdHRlcm4gcGF0dGVyblVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeT0iLTAlIiBoZWlnaHQ9IjEwMCUiIHdpZHRoPSIxMDAlIiBpZD0icGF0dGVybl8xIj4KICAgICAgPHVzZSB4bGluazpocmVmPSIjaW1nXzEiIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIDEgMCAwKSIgLz4KICAgIDwvcGF0dGVybj4KICA8L2RlZnM+CiAgPHBhdGggZD0iTTAgMEwzIDBMMyA0TDAgNEwwIDBaIiBpZD0icHJvZ3Jlc3MtZnJhbWUiIGZpbGw9InVybCgjcGF0dGVybl8xKSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9Im5vbmUiIC8+Cjwvc3ZnPg==');
+		background: none;
+		background-clip: padding-box;
+	}
+
+	progress::-webkit-progress-bar {
+		background: none;
+	}
+
+	progress::-webkit-progress-value,
+	progress.primary::-webkit-progress-value,
+	progress.primary::-moz-progress-bar {
+		background: $primary-accent;
+	}
+
+	@for $i from 1 through 100 {
+		.progress-bar.p#{$i} {
+			&::after {
+				content: '';
+				display: inline-block;
+				position: absolute;
+
+				@if $i < 21 {
+					background: $danger-accent;
+				} @else if $i < 51 {
+					background: $secondary-accent;
+				} @else {
+					background: $primary-accent;
+				}
+
+				width: #{$i + '%'};
+				height: 4px;
+				top: 0;
+				left: 0;
+			}
+
+			&.primary::after {
+				background: $primary-accent;
+			}
+		}
+
+		progress[value='#{$i}']::-moz-progress-bar {
+			height: 4px;
+
+			@if $i < 21 {
+				background: $danger-accent;
+			} @else if $i < 51 {
+				background: $secondary-accent;
+			} @else {
+				background: $primary-accent;
+			}
+		}
+
+		// TODO: Find way to dynamically change color based on value. On Chrome progress[value="#{$i}"]::-webkit-progress-value does not get applied.
+		progress.p#{$i}::-webkit-progress-value {
+			@if $i < 21 {
+				background: $danger-accent;
+			} @else if $i < 51 {
+				background: $secondary-accent;
+			} @else {
+				background: $primary-accent;
+			}
+		}
+	}
+}

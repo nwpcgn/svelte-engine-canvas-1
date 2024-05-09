@@ -1,0 +1,132 @@
+$spacing-base: 1rem;
+$page-size: 500px;
+$chatbox-height: 100px;
+$offset-del: 0.1s;
+$offset-dur: 0.6s;
+$layer-change-dura: 0.9s;
+$img-layer-wrapp-dura: 0.5s;
+$font-content: 'Pokemon GB', monospace;
+$font-heading: 'Press Start 2P', monospace;
+
+:root {
+	--spacing: #{$spacing-base};
+	--spacing-xs: calc(var(--spacing) * 0.25);
+	--spacing-sm: calc(var(--spacing) * 0.5);
+	--spacing-md: calc(var(--spacing) * 0.75);
+	--spacing-lg: calc(var(--spacing) * 1.5);
+	--spacing-xl: calc(var(--spacing) * 2);
+	--gb-win-width: #{$page-size};
+	--gb-win-height: #{$page-size};
+	--gb-offset-h: #{$chatbox-height};
+	--gb-offset-del: #{$offset-del};
+	--gb-offset-dur: #{$offset-dur};
+	--gb-img-frame-w: calc(#{$page-size} * 0.45);
+
+	// Layers Info/Image
+	--gb-layer-change-dura: #{$layer-change-dura};
+	--gb-img-layer-wrapp-dura: #{$img-layer-wrapp-dura};
+	--gb-img-layer-wrapp-w: calc(#{$page-size} * 0.4);
+	--gb-info-frame-w: calc(#{$page-size} * 0.4);
+	--gb-img-layer-wrapp-delay: 0s;
+	--gb-win-offset-y: 0px;
+	--poke-size: 500px;
+}
+
+:root {
+	--gb3-200: #a8a8a8;
+	--gb3-400: #080808;
+	--gb3-300: #585858;
+	--gb3-100: #f8f8f8;
+	--gb2-100: #b8f878;
+	--gb2-200: #80b050;
+	--gb2-300: #486828;
+	--gb2-400: #102000;
+	--gb-100: #e0f8cf;
+	--gb-200: #86c06c;
+	--gb-300: #306850;
+	--gb-400: #222222;
+	--gb-gray-100: #F8F8F8;
+	--gb-gray-200: #A8A8A8;
+	--gb-gray-300: #585858;
+	--gb-gray-400: #080808;
+
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+$prefix: gb;
+
+.#{$prefix} {
+	font-family: $font-content;
+	background-color: var(--gb-100);
+	color: var(--gb-300);
+
+	&.main-frame {
+		position: absolute;
+		width: var(--gb-win-width);
+		height: var(--gb-win-height);
+		aspect-ratio: 1 / 1;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+.window {
+	position: absolute;
+	background-color: var(--gb-100);
+	color: var(--gb-300);
+	position: absolute;
+
+	@include framedBorder();
+}
+
+.gb-stats {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
+	border: 4px solid var(--gb-300);
+	margin: var(--spacing-md);
+	color: var(--gb-300);
+	position: relative;
+	padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-lg);
+
+	.header {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: 1.5rem;
+		font-weight: 800;
+	}
+
+	.triangle {
+		width: 0;
+		height: 0;
+		border-style: solid;
+		position: absolute;
+
+		&.right {
+			border-width: 12px 0 0 20px;
+			border-color: transparent transparent transparent var(--gb-300);
+			bottom: 0;
+			right: 0;
+		}
+
+		&.left {
+			border-width: 0 0 12px 20px;
+			border-color: transparent transparent var(--gb-300) transparent;
+			bottom: 0;
+			left: 0;
+		}
+	}
+
+	&.opponent {
+		border-top-width: 0;
+		border-left-width: 0;
+	}
+
+	&.player {
+		border-right-width: 0;
+		border-top-width: 0;
+	}
+}
