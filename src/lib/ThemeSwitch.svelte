@@ -37,7 +37,7 @@
 </script>
 
 <select
-	class="select select-bordered w-full max-w-xs capitalize"
+	class="form-select text-capitalize"
 	bind:value={$theme}>
 	{#each themes as theme}
 		<option value={theme}>{theme}</option>

@@ -21,7 +21,7 @@
 			'400': '#080808'
 		}
 	}
-
+	export let name
 	let fontSize = 12
 	let offsetY = 100
 	let y2 = $height - offsetY
@@ -58,6 +58,7 @@
 	init()
 </script>
 
+<svelte:head><title>{name}</title></svelte:head>
 {#await init()}
 	<section class="layer center nwp">
 		<div class="d-flex justify-content-center align-items-center">

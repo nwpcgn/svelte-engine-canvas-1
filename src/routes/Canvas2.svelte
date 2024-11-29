@@ -7,6 +7,7 @@
 	import Character from '../lib/canvas/Character.svelte'
 	import Text from '../lib/canvas/Text.svelte'
 	import FPS from '../lib/canvas/FPS.svelte'
+	export let name
 	const colors = {
 		gb: {
 			'100': '#B8F878',
@@ -56,6 +57,8 @@
 
 	init()
 </script>
+
+<svelte:head><title>{name}</title></svelte:head>
 
 {#await init()}
 	<section class="layer center nwp">

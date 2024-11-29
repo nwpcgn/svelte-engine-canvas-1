@@ -1,17 +1,16 @@
 <script>
-	import { sleep } from '../lib'
-	import { width, height, frame } from '../lib/canvas/game'
-	import Canvas from '../lib/canvas/Canvas.svelte'
-	import Background from '../lib/canvas/Background.svelte'
-	import DotGrid from '../lib/canvas/DotGrid.svelte'
-	import Character from '../lib/canvas/Character.svelte'
-	import Text from '../lib/canvas/Text.svelte'
-	import FPS from '../lib/canvas/FPS.svelte'
+	import { Canvas, Layer } from 'svelte-canvas'
+	import { tweened } from 'svelte/motion'
+	import { quadOut as easing } from 'svelte/easing'
+	import Bg from './sv-canvas/Bg.svelte'
+	import BgImage from './sv-canvas/BgImage.svelte'
+	export let name
+	const position = tweened([0.5, 0.5], { duration: 400, easing })
 	const colors = {
 		gb: {
-			'100': '#B8F878',
-			'200': '#80B050',
-			'300': '#486828',
+			'100': '#E0F8CF',
+			'200': '#86C06C',
+			'300': '#306850',
 			'400': '#102000'
 		},
 		'gb-gray': {
@@ -22,63 +21,19 @@
 		}
 	}
 
-	let fontSize = 12
-	let offsetY = 100
-	let y2 = $height - offsetY
-	let y1 = $height - offsetY - fontSize
-	let maxW = 500
-	let setup = {
-		msg1: {
-			fontSize,
-			color: colors.gb['300'],
-			align: 'left',
-			baseline: 'top',
-			maxW,
-			x: 0,
-			y: y1
-		},
-		msg2: {
-			fontSize,
-			color: colors.gb['300'],
-			align: 'left',
-			baseline: 'top',
-			maxW: maxW,
-			x: 0,
-			y: y2
-		}
+	$: render = ({ context, width, height }) => {
+		// const [x, y] = $position
+		// context.fillStyle = colors.gb['300']
+		// context.beginPath()
+		// context.arc(x * width, y * height, 20, 0, 2 * Math.PI)
+		// context.fill()
 	}
-	const init = async () => {
-		await sleep(1222)
-		width.set($frame.width)
-		height.set($frame.height)
-		console.log('init')
-		console.log($frame.width)
-	}
-
-	init()
 </script>
 
-{#await init()}
-	<section class="layer center nwp">
-		<div class="d-flex justify-content-center align-items-center">
-			<div class="spinner-grow text-primary spinner-border-lg" role="status">
-				<span class="visually-hidden">Loading...</span>
-			</div>
-		</div>
-	</section>
-{:then __}
-	<Canvas>
-		<Background color="hsl(0, 0%, 10%)">
-			<DotGrid divisions={30} color="hsla(0, 0%, 100%, 0.5)" />
-		</Background>
-		<Character size={10} />
-		<Text
-			text="Click and drag around the page to move the character."
-			fontSize={12}
-			align="right"
-			baseline="bottom"
-			x={$width - 20}
-			y={$height - 20} />
-		<FPS />
+<svelte:head><title>{name}</title></svelte:head>
+<section class="layer center">
+	<Canvas width={512} height={512}>
+		<Bg color={colors.gb['100']} />
+		<BgImage />
 	</Canvas>
-{/await}
+</section>
